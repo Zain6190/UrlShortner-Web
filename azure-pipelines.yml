@@ -1,0 +1,19 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+   name: 'Private Pool'   # <-- uses your self-hosted agent pool
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+
+- script: |
+    echo "Installing dependencies..."
+    pip install -r requirements.txt
+    echo "Running tests..."
+    pytest
+  displayName: 'Install dependencies & Run tests'
